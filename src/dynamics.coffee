@@ -1223,10 +1223,15 @@ leftDelayForTimeout = (time, timeout) ->
   else
     timeout.originalDelay
 
-window?.addEventListener('unload', ->
+window?.addEventListener('pagehide', ->
   # This is a hack for Safari to fix the case where the user does back/forward
   # between this page. If this event is not listened to, it seems like safari is keeping
   # the javascript state but this cause problems with setTimeout/rAF
+  # UPDATE - 2022
+  # Instead of using the unload event, use the pagehide event.
+  # The pagehide event fires in all cases where the unload event currently fires,
+  # and it also fires when a page is put in the bfcache.
+  # https://web.dev/bfcache/?utm_source=lighthouse&utm_medium=devtools#never-use-the-unload-event
 )
 
 # Visibility change
